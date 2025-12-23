@@ -12,14 +12,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_animation_transition/animations/fade_animation_transition.dart';
 import 'package:page_animation_transition/page_animation_transition.dart';
 
+
 class ResultPage extends StatefulWidget {
   final double currentSliderValue;
   final double counter1;
-  ResultPage({
-    Key? key,
+  const ResultPage({
+    super.key,
     required this.currentSliderValue,
     required this.counter1,
-  }) : super(key: key);
+  });
 
   @override
   State<ResultPage> createState() => _ResultPageState();
@@ -65,7 +66,7 @@ class _ResultPageState extends State<ResultPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Result',
+        title: const Text('Result',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
       ),
       body: Column(
@@ -95,7 +96,8 @@ class _ResultPageState extends State<ResultPage> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(235, 250, 12, 39)),
+                        backgroundColor: const Color.fromARGB(235, 250, 12, 39)),
+                        
                     child: Text(
                       'Categories',
                       style: TextStyle(
@@ -114,7 +116,7 @@ class _ResultPageState extends State<ResultPage> {
               width: double.infinity,
               height: 500.sp,
               decoration: BoxDecoration(
-                  color: Color.fromARGB(29, 30, 51, 255),
+                  color: const Color.fromARGB(29, 30, 51, 255),
                   borderRadius: BorderRadius.all(Radius.circular(30.sp))),
               child: Column(
                 children: [
@@ -124,7 +126,7 @@ class _ResultPageState extends State<ResultPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      '${result.toStringAsFixed(2)}',
+                      result.toStringAsFixed(2),
                       style: TextStyle(color: Colors.white, fontSize: 40.sp),
                     ),
                   ),
@@ -156,15 +158,15 @@ class _ResultPageState extends State<ResultPage> {
                         page: CalculatePage(),
                         pageAnimationType: FadeAnimationTransition()));
                   },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(235, 250, 12, 39)),
                   child: Text(
-                    'Recalcualte',
+                    'Recalculate',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.sp,
                         fontWeight: FontWeight.bold),
                   ),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(235, 250, 12, 39)),
                 ),
               ))
         ],

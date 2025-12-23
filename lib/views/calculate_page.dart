@@ -55,7 +55,7 @@ class _CalculatePageState extends State<CalculatePage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(
+        title: const Text(
           'BMI Calculator',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
@@ -76,7 +76,8 @@ class _CalculatePageState extends State<CalculatePage> {
                           _selectedContainer = 1;
                         });
                       },
-                      child: MaleContainer(selectedContainer: _selectedContainer),
+                      child:
+                          MaleContainer(selectedContainer: _selectedContainer),
                     ),
                   ),
                 ),
@@ -89,8 +90,8 @@ class _CalculatePageState extends State<CalculatePage> {
                           _selectedContainer = 2;
                         });
                       },
-                      child:
-                          FemaleContainer(selectedContainer: _selectedContainer),
+                      child: FemaleContainer(
+                          selectedContainer: _selectedContainer),
                     ),
                   ),
                 ),
@@ -118,7 +119,7 @@ class _CalculatePageState extends State<CalculatePage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0) +
-                          EdgeInsets.only(bottom: 3),
+                          const EdgeInsets.only(bottom: 3),
                       child: Text(
                         '${currentSliderValue.round()} cm',
                         style: TextStyle(
@@ -304,11 +305,11 @@ class _CalculatePageState extends State<CalculatePage> {
                       builder: (context) {
                         return AlertDialog(
                           backgroundColor: Color.fromARGB(29, 30, 51, 255),
-                          title: Text(
+                          title: const Text(
                             "Warning",
                             style: TextStyle(color: Colors.white),
                           ),
-                          content: Text(
+                          content: const Text(
                             "Please enter the value of the weight correctly. (The value of the weight must be greater than 10)",
                             style: TextStyle(color: Colors.white),
                           ),
@@ -317,7 +318,7 @@ class _CalculatePageState extends State<CalculatePage> {
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: Text(
+                              child: const Text(
                                 "Close",
                                 style: TextStyle(color: Colors.white),
                               ),
