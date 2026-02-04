@@ -26,12 +26,12 @@ class _CategoryPageState extends State<CategoryPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.sp),
             child: DataTable(
               decoration: BoxDecoration(
                   color: Color.fromARGB(29, 30, 51, 255),
                   borderRadius: BorderRadius.circular(30.sp)),
-              columns: const <DataColumn>[
+              columns:  <DataColumn>[
                 DataColumn(
                   label: Expanded(
                     child: Text(
@@ -39,18 +39,18 @@ class _CategoryPageState extends State<CategoryPage> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.purple,
-                          fontSize: 17),
+                          fontSize: 17.sp),
                     ),
                   ),
                 ),
-                DataColumn(
+                 DataColumn(
                   label: Expanded(
                     child: Text(
                       'Category',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.purple,
-                        fontSize: 17,
+                        fontSize: 17.sp,
                       ),
                     ),
                   ),

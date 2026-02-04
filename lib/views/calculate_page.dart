@@ -69,7 +69,7 @@ class _CalculatePageState extends State<CalculatePage> {
               children: [
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:  EdgeInsets.all(8.sp),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -83,7 +83,7 @@ class _CalculatePageState extends State<CalculatePage> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:  EdgeInsets.all(8.sp),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -100,15 +100,15 @@ class _CalculatePageState extends State<CalculatePage> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(8.sp),
               child: CustomContainer(
                 width: double.infinity,
-                height: 200.sp,
+                height: 200.h,
                 widget: Column(
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsets.all(8.0) + EdgeInsets.only(top: 13),
+                           EdgeInsets.all(8.sp) + EdgeInsets.only(top: 13.sp),
                       child: Text(
                         'Height',
                         style: TextStyle(
@@ -118,8 +118,7 @@ class _CalculatePageState extends State<CalculatePage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0) +
-                          const EdgeInsets.only(bottom: 3),
+                      padding:  EdgeInsets.all(8.sp) + EdgeInsets.only(bottom: 3.sp),
                       child: Text(
                         '${currentSliderValue.round()} cm',
                         style: TextStyle(
@@ -132,7 +131,7 @@ class _CalculatePageState extends State<CalculatePage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Slider(
-                        activeColor: Color.fromARGB(235, 250, 12, 39),
+                        activeColor: const Color.fromARGB(235, 250, 12, 39),
                         value: currentSliderValue,
                         min: 100.sp,
                         max: 200.sp,
@@ -155,14 +154,14 @@ class _CalculatePageState extends State<CalculatePage> {
               children: [
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.sp),
                     child: CustomContainer(
-                      width: 100.sp,
-                      height: 200.sp,
+                      width: 100.w,
+                      height: 200.h,
                       widget: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(8.sp),
                             child: Text(
                               'Weight',
                               style: TextStyle(
@@ -188,7 +187,7 @@ class _CalculatePageState extends State<CalculatePage> {
                             children: [
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.sp),
                                   child: IconButton(
                                       onPressed: _decrementCounter1,
                                       icon: Icon(
@@ -200,7 +199,7 @@ class _CalculatePageState extends State<CalculatePage> {
                               ),
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.sp),
                                   child: IconButton(
                                     onPressed: _incrementCounter1,
                                     icon: Icon(
@@ -220,14 +219,14 @@ class _CalculatePageState extends State<CalculatePage> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.sp),
                     child: CustomContainer(
-                      width: 100.sp,
-                      height: 200.sp,
+                      width: 100.w,
+                      height: 200.h,
                       widget: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(8.sp),
                             child: Text(
                               'Age',
                               style: TextStyle(
@@ -253,7 +252,7 @@ class _CalculatePageState extends State<CalculatePage> {
                             children: [
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.sp),
                                   child: IconButton(
                                       onPressed: _decrementCounter2,
                                       icon: Icon(
@@ -265,7 +264,7 @@ class _CalculatePageState extends State<CalculatePage> {
                               ),
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.sp),
                                   child: IconButton(
                                     onPressed: _incrementCounter2,
                                     icon: Icon(
@@ -288,9 +287,9 @@ class _CalculatePageState extends State<CalculatePage> {
           ),
           SizedBox(
             width: double.infinity,
-            height: 80.sp,
+            height: 80.h,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.sp),
               child: ElevatedButton(
                 onPressed: () {
                   if (counter1.value > 0 && counter2.value > 0) {
@@ -329,6 +328,8 @@ class _CalculatePageState extends State<CalculatePage> {
                     );
                   }
                 },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(235, 250, 12, 39)),
                 child: Text(
                   'Calculate',
                   style: TextStyle(
@@ -336,8 +337,6 @@ class _CalculatePageState extends State<CalculatePage> {
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold),
                 ),
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(235, 250, 12, 39)),
               ),
             ),
           )

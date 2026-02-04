@@ -13,8 +13,8 @@ class MaleContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100.sp,
-      height: 210.sp,
+      width: 100.w,
+      height: 210.h,
       decoration: BoxDecoration(
           color: _selectedContainer == 1
               ? Color.fromARGB(235, 250, 12, 39)

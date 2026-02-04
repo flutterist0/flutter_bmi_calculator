@@ -74,7 +74,7 @@ class _ResultPageState extends State<ResultPage> {
         children: [
           SizedBox(height: 50.sp),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.sp),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -84,8 +84,8 @@ class _ResultPageState extends State<ResultPage> {
                         color: Colors.white,
                         fontWeight: FontWeight.w600)),
                 SizedBox(
-                  width: 130.sp,
-                  height: 40.sp,
+                  width: 130.w,
+                  height: 40.h,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
@@ -111,10 +111,10 @@ class _ResultPageState extends State<ResultPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.sp),
             child: Container(
               width: double.infinity,
-              height: 500.sp,
+              height: 500.h,
               decoration: BoxDecoration(
                   color: const Color.fromARGB(29, 30, 51, 255),
                   borderRadius: BorderRadius.all(Radius.circular(30.sp))),
@@ -124,7 +124,7 @@ class _ResultPageState extends State<ResultPage> {
                     height: 100.sp,
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.sp),
                     child: Text(
                       result.toStringAsFixed(2),
                       style: TextStyle(color: Colors.white, fontSize: 40.sp),
@@ -134,10 +134,10 @@ class _ResultPageState extends State<ResultPage> {
                     height: 50.sp,
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:  EdgeInsets.all(8.sp),
                     child: Text(
                       textToShow,
-                      style: TextStyle(color: color, fontSize: 25),
+                      style: TextStyle(color: color, fontSize: 25.sp),
                     ),
                   ),
                   SizedBox(
@@ -149,9 +149,9 @@ class _ResultPageState extends State<ResultPage> {
           ),
           SizedBox(
               width: double.infinity,
-              height: 80.sp,
+              height: 80.h,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding:  EdgeInsets.all(8.sp),
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).push(PageAnimationTransition(
