@@ -25,28 +25,51 @@ class CalculatePage extends StatefulWidget {
 
 class _CalculatePageState extends State<CalculatePage> {
   int _selectedContainer = 0;
-  double currentSliderValue = 100;
+  final ValueNotifier<double> _heightNotifier = ValueNotifier<double>(100);
   final ValueNotifier<double> counter1 = ValueNotifier<double>(60);
+  final TextEditingController _weightController = TextEditingController();
+
+  final ValueNotifier<int> counter2 = ValueNotifier<int>(10);
+  final TextEditingController _ageController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _weightController.text = counter1.value.toInt().toString();
+    _ageController.text = counter2.value.toString();
+  }
+
+  @override
+  void dispose() {
+    _heightNotifier.dispose();
+    counter1.dispose();
+    counter2.dispose();
+    _weightController.dispose();
+    _ageController.dispose();
+    super.dispose();
+  }
 
   void _incrementCounter1() {
     counter1.value++;
+    _weightController.text = counter1.value.toInt().toString();
   }
 
   void _decrementCounter1() {
     if (counter1.value > 0) {
       counter1.value--;
+      _weightController.text = counter1.value.toInt().toString();
     }
   }
 
-  final ValueNotifier<int> counter2 = ValueNotifier<int>(10);
-
   void _incrementCounter2() {
     counter2.value++;
+    _ageController.text = counter2.value.toString();
   }
 
   void _decrementCounter2() {
     if (counter2.value > 0) {
       counter2.value--;
+      _ageController.text = counter2.value.toString();
     }
   }
 
@@ -69,7 +92,7 @@ class _CalculatePageState extends State<CalculatePage> {
               children: [
                 Expanded(
                   child: Padding(
-                    padding:  EdgeInsets.all(8.sp),
+                    padding: EdgeInsets.all(8.sp),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -83,7 +106,7 @@ class _CalculatePageState extends State<CalculatePage> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding:  EdgeInsets.all(8.sp),
+                    padding: EdgeInsets.all(8.sp),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -100,51 +123,55 @@ class _CalculatePageState extends State<CalculatePage> {
           ),
           Expanded(
             child: Padding(
-              padding:  EdgeInsets.all(8.sp),
+              padding: EdgeInsets.all(8.sp),
               child: CustomContainer(
                 width: double.infinity,
                 height: 200.h,
-                widget: Column(
-                  children: [
-                    Padding(
-                      padding:
-                           EdgeInsets.all(8.sp) + EdgeInsets.only(top: 13.sp),
-                      child: Text(
-                        'Height',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.all(8.sp) + EdgeInsets.only(bottom: 3.sp),
-                      child: Text(
-                        '${currentSliderValue.round()} cm',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 30.sp,
+                widget: ValueListenableBuilder<double>(
+                  valueListenable: _heightNotifier,
+                  builder: (context, currentSliderValue, child) {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(8.sp) +
+                              EdgeInsets.only(top: 13.sp),
+                          child: Text(
+                            'Height',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Slider(
-                        activeColor: const Color.fromARGB(235, 250, 12, 39),
-                        value: currentSliderValue,
-                        min: 100.sp,
-                        max: 200.sp,
-                        divisions: 200,
-                        label: currentSliderValue.round().toString(),
-                        onChanged: (double value) {
-                          setState(() {
-                            currentSliderValue = value;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
+                        Padding(
+                          padding: EdgeInsets.all(8.sp) +
+                              EdgeInsets.only(bottom: 3.sp),
+                          child: Text(
+                            '${currentSliderValue.round()} cm',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 30.sp,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Slider(
+                            activeColor: const Color.fromARGB(235, 250, 12, 39),
+                            value: currentSliderValue,
+                            min: 100,
+                            max: 200,
+                            divisions: 200,
+                            label: currentSliderValue.round().toString(),
+                            onChanged: (double value) {
+                              _heightNotifier.value = value;
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ),
@@ -159,6 +186,7 @@ class _CalculatePageState extends State<CalculatePage> {
                       width: 100.w,
                       height: 200.h,
                       widget: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
                             padding: EdgeInsets.all(8.sp),
@@ -171,18 +199,29 @@ class _CalculatePageState extends State<CalculatePage> {
                               ),
                             ),
                           ),
-                          ValueListenableBuilder(
-                              valueListenable: counter1,
-                              builder: (context, value, child) {
-                                return Text(
-                                  '${value.toInt()}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 30.sp,
-                                  ),
-                                );
-                              }),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                            child: TextField(
+                              controller: _weightController,
+                              keyboardType: TextInputType.number,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 30.sp,
+                              ),
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                isDense: true,
+                              ),
+                              onChanged: (value) {
+                                if (value.isNotEmpty) {
+                                  counter1.value =
+                                      double.tryParse(value) ?? counter1.value;
+                                }
+                              },
+                            ),
+                          ),
                           Row(
                             children: [
                               Expanded(
@@ -224,6 +263,7 @@ class _CalculatePageState extends State<CalculatePage> {
                       width: 100.w,
                       height: 200.h,
                       widget: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
                             padding: EdgeInsets.all(8.sp),
@@ -236,18 +276,29 @@ class _CalculatePageState extends State<CalculatePage> {
                               ),
                             ),
                           ),
-                          ValueListenableBuilder(
-                              valueListenable: counter2,
-                              builder: (context, value, child) {
-                                return Text(
-                                  '${value}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 30.sp,
-                                  ),
-                                );
-                              }),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                            child: TextField(
+                              controller: _ageController,
+                              keyboardType: TextInputType.number,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 30.sp,
+                              ),
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                isDense: true,
+                              ),
+                              onChanged: (value) {
+                                if (value.isNotEmpty) {
+                                  counter2.value =
+                                      int.tryParse(value) ?? counter2.value;
+                                }
+                              },
+                            ),
+                          ),
                           Row(
                             children: [
                               Expanded(
@@ -292,18 +343,50 @@ class _CalculatePageState extends State<CalculatePage> {
               padding: EdgeInsets.all(8.sp),
               child: ElevatedButton(
                 onPressed: () {
-                  if (counter1.value > 0 && counter2.value > 0) {
+                  if (counter1.value > 0 &&
+                      counter2.value > 0 &&
+                      _selectedContainer != 0) {
                     Navigator.of(context).push(PageAnimationTransition(
                         page: ResultPage(
-                            currentSliderValue: currentSliderValue,
+                            currentSliderValue: _heightNotifier.value,
                             counter1: counter1.value),
                         pageAnimationType: FadeAnimationTransition()));
+                  } else if (_selectedContainer == 0) {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          backgroundColor:
+                              const Color.fromARGB(29, 30, 51, 255),
+                          title: const Text(
+                            "Warning",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          content: const Text(
+                            "Please select your gender.",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text(
+                                "Close",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   } else {
                     showDialog(
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          backgroundColor: Color.fromARGB(29, 30, 51, 255),
+                          backgroundColor:
+                              const Color.fromARGB(29, 30, 51, 255),
                           title: const Text(
                             "Warning",
                             style: TextStyle(color: Colors.white),
@@ -329,7 +412,7 @@ class _CalculatePageState extends State<CalculatePage> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(235, 250, 12, 39)),
+                    backgroundColor: const Color.fromARGB(235, 250, 12, 39)),
                 child: Text(
                   'Calculate',
                   style: TextStyle(

@@ -2,8 +2,6 @@
 import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bmi_calculator/views/calculate_page.dart';
@@ -12,10 +10,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_animation_transition/animations/fade_animation_transition.dart';
 import 'package:page_animation_transition/page_animation_transition.dart';
 
-
 class ResultPage extends StatefulWidget {
   final double currentSliderValue;
   final double counter1;
+
   const ResultPage({
     super.key,
     required this.currentSliderValue,
@@ -62,10 +60,12 @@ class _ResultPageState extends State<ResultPage> {
           return Colors.red;
       }
     }
+
     Color color = getColorForBMIResult(result.toString());
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        iconTheme: IconThemeData(color: Colors.white),
+        automaticallyImplyLeading: true,
         title: const Text('Result',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
       ),
@@ -96,8 +96,8 @@ class _ResultPageState extends State<ResultPage> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(235, 250, 12, 39)),
-                        
+                        backgroundColor:
+                            const Color.fromARGB(235, 250, 12, 39)),
                     child: Text(
                       'Categories',
                       style: TextStyle(
@@ -110,40 +110,37 @@ class _ResultPageState extends State<ResultPage> {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(8.sp),
-            child: Container(
-              width: double.infinity,
-              height: 500.h,
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(29, 30, 51, 255),
-                  borderRadius: BorderRadius.all(Radius.circular(30.sp))),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 100.sp,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.sp),
-                    child: Text(
-                      result.toStringAsFixed(2),
-                      style: TextStyle(color: Colors.white, fontSize: 40.sp),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(8.sp),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(29, 30, 51, 255),
+                    borderRadius: BorderRadius.all(Radius.circular(30.sp))),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.sp),
+                      child: Text(
+                        result.toStringAsFixed(2),
+                        style: TextStyle(color: Colors.white, fontSize: 40.sp),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 50.sp,
-                  ),
-                  Padding(
-                    padding:  EdgeInsets.all(8.sp),
-                    child: Text(
-                      textToShow,
-                      style: TextStyle(color: color, fontSize: 25.sp),
+                    SizedBox(
+                      height: 50.sp,
                     ),
-                  ),
-                  SizedBox(
-                    height: 50.sp,
-                  ),
-                ],
+                    Padding(
+                      padding: EdgeInsets.all(8.sp),
+                      child: Text(
+                        textToShow,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: color, fontSize: 25.sp),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -151,7 +148,7 @@ class _ResultPageState extends State<ResultPage> {
               width: double.infinity,
               height: 80.h,
               child: Padding(
-                padding:  EdgeInsets.all(8.sp),
+                padding: EdgeInsets.all(8.sp),
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).push(PageAnimationTransition(
@@ -163,9 +160,10 @@ class _ResultPageState extends State<ResultPage> {
                   child: Text(
                     'Recalculate',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ))

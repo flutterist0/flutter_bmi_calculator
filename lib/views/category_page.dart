@@ -19,6 +19,7 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text('Categories',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
       ),
