@@ -1,23 +1,20 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bmi_calculator/views/history_page.dart';
 import 'package:flutter_bmi_calculator/views/result_page.dart';
-import 'package:flutter_bmi_calculator/widget/custom_container.dart';
 import 'package:flutter_bmi_calculator/widget/female_container.dart';
 import 'package:flutter_bmi_calculator/widget/male_container.dart';
+import 'package:flutter_bmi_calculator/widget/bottom_action_button.dart';
+import 'package:flutter_bmi_calculator/widget/height_card.dart';
+import 'package:flutter_bmi_calculator/widget/input_card.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:page_animation_transition/animations/bottom_to_top_transition.dart';
 import 'package:page_animation_transition/animations/fade_animation_transition.dart';
-import 'package:page_animation_transition/animations/rotate_animation_transition.dart';
-import 'package:page_animation_transition/animations/scale_animation_transition.dart';
-import 'package:page_animation_transition/animations/top_to_bottom_faded.dart';
-import 'package:page_animation_transition/animations/top_to_bottom_transition.dart';
+import 'package:page_animation_transition/animations/right_to_left_transition.dart';
 import 'package:page_animation_transition/page_animation_transition.dart';
 
 class CalculatePage extends StatefulWidget {
-  CalculatePage({super.key});
+  const CalculatePage({super.key});
 
   @override
   State<CalculatePage> createState() => _CalculatePageState();
@@ -75,6 +72,12 @@ class _CalculatePageState extends State<CalculatePage> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double appBarHeight = AppBar().preferredSize.height;
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+    final double bottomPadding = MediaQuery.of(context).padding.bottom;
+    final double contentHeight = screenHeight - appBarHeight - statusBarHeight - bottomPadding;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -82,266 +85,105 @@ class _CalculatePageState extends State<CalculatePage> {
           'BMI Calculator',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
-        actions: [],
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(PageAnimationTransition(
+                  page: const HistoryPage(),
+                  pageAnimationType: RightToLeftTransition()));
+            },
+            icon: const Icon(Icons.history, color: Colors.white),
+          )
+        ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(8.sp),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedContainer = 1;
-                        });
-                      },
-                      child:
-                          MaleContainer(selectedContainer: _selectedContainer),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: contentHeight,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.sp),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _selectedContainer = 1;
+                            });
+                          },
+                          child:
+                              MaleContainer(selectedContainer: _selectedContainer),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(8.sp),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedContainer = 2;
-                        });
-                      },
-                      child: FemaleContainer(
-                          selectedContainer: _selectedContainer),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.sp),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _selectedContainer = 2;
+                            });
+                          },
+                          child: FemaleContainer(
+                              selectedContainer: _selectedContainer),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(8.sp),
-              child: CustomContainer(
-                width: double.infinity,
-                height: 200.h,
-                widget: ValueListenableBuilder<double>(
-                  valueListenable: _heightNotifier,
-                  builder: (context, currentSliderValue, child) {
-                    return Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8.sp) +
-                              EdgeInsets.only(top: 13.sp),
-                          child: Text(
-                            'Height',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8.sp) +
-                              EdgeInsets.only(bottom: 3.sp),
-                          child: Text(
-                            '${currentSliderValue.round()} cm',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w900,
-                              fontSize: 30.sp,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Slider(
-                            activeColor: const Color.fromARGB(235, 250, 12, 39),
-                            value: currentSliderValue,
-                            min: 100,
-                            max: 200,
-                            divisions: 200,
-                            label: currentSliderValue.round().toString(),
-                            onChanged: (double value) {
-                              _heightNotifier.value = value;
-                            },
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+                  ],
                 ),
               ),
-            ),
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(8.sp),
-                    child: CustomContainer(
-                      width: 100.w,
-                      height: 200.h,
-                      widget: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(8.sp),
-                            child: Text(
-                              'Weight',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.sp,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                            child: TextField(
-                              controller: _weightController,
-                              keyboardType: TextInputType.number,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 30.sp,
-                              ),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                isDense: true,
-                              ),
-                              onChanged: (value) {
-                                if (value.isNotEmpty) {
-                                  counter1.value =
-                                      double.tryParse(value) ?? counter1.value;
-                                }
-                              },
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.all(8.sp),
-                                  child: IconButton(
-                                      onPressed: _decrementCounter1,
-                                      icon: Icon(
-                                        Icons.remove,
-                                        color: Colors.white,
-                                        size: 50.sp,
-                                      )),
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.all(8.sp),
-                                  child: IconButton(
-                                    onPressed: _incrementCounter1,
-                                    icon: Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                      size: 50.sp,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(8.sp),
+                  child: HeightCard(heightNotifier: _heightNotifier),
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.sp),
+                        child: InputCard(
+                          title: 'Weight',
+                          controller: _weightController,
+                          onDecrement: _decrementCounter1,
+                          onIncrement: _incrementCounter1,
+                          onChanged: (value) {
+                            if (value.isNotEmpty) {
+                              counter1.value =
+                                  double.tryParse(value) ?? counter1.value;
+                            }
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(8.sp),
-                    child: CustomContainer(
-                      width: 100.w,
-                      height: 200.h,
-                      widget: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(8.sp),
-                            child: Text(
-                              'Age',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.sp,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                            child: TextField(
-                              controller: _ageController,
-                              keyboardType: TextInputType.number,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 30.sp,
-                              ),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                isDense: true,
-                              ),
-                              onChanged: (value) {
-                                if (value.isNotEmpty) {
-                                  counter2.value =
-                                      int.tryParse(value) ?? counter2.value;
-                                }
-                              },
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.all(8.sp),
-                                  child: IconButton(
-                                      onPressed: _decrementCounter2,
-                                      icon: Icon(
-                                        Icons.remove,
-                                        color: Colors.white,
-                                        size: 50.sp,
-                                      )),
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.all(8.sp),
-                                  child: IconButton(
-                                    onPressed: _incrementCounter2,
-                                    icon: Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                      size: 50.sp,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.sp),
+                        child: InputCard(
+                          title: 'Age',
+                          controller: _ageController,
+                          onDecrement: _decrementCounter2,
+                          onIncrement: _incrementCounter2,
+                          onChanged: (value) {
+                            if (value.isNotEmpty) {
+                              counter2.value =
+                                  int.tryParse(value) ?? counter2.value;
+                            }
+                          },
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            height: 80.h,
-            child: Padding(
-              padding: EdgeInsets.all(8.sp),
-              child: ElevatedButton(
+              ),
+              BottomActionButton(
+                title: 'Calculate',
                 onPressed: () {
                   if (counter1.value > 0 &&
                       counter2.value > 0 &&
@@ -411,19 +253,10 @@ class _CalculatePageState extends State<CalculatePage> {
                     );
                   }
                 },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(235, 250, 12, 39)),
-                child: Text(
-                  'Calculate',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold),
-                ),
               ),
-            ),
-          )
-        ],
+            ],
+          ),
+        ),
       ),
     );
   }

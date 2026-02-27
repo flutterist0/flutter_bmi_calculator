@@ -19,8 +19,8 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
-        title: Text('Categories',
+        iconTheme:const IconThemeData(color: Colors.white),
+        title: const Text('Categories',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
       ),
       body: Column(
@@ -30,7 +30,7 @@ class _CategoryPageState extends State<CategoryPage> {
             padding: EdgeInsets.all(8.sp),
             child: DataTable(
               decoration: BoxDecoration(
-                  color: Color.fromARGB(29, 30, 51, 255),
+                  color: const Color.fromARGB(29, 30, 51, 255),
                   borderRadius: BorderRadius.circular(30.sp)),
               columns:  <DataColumn>[
                 DataColumn(

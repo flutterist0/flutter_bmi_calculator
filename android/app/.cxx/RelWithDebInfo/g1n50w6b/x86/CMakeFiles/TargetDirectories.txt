@@ -1,0 +1,2 @@
+C:/Users/MSI/Desktop/flutter_bmi_calculator/android/app/.cxx/RelWithDebInfo/g1n50w6b/x86/CMakeFiles/edit_cache.dir
+C:/Users/MSI/Desktop/flutter_bmi_calculator/android/app/.cxx/RelWithDebInfo/g1n50w6b/x86/CMakeFiles/rebuild_cache.dir
